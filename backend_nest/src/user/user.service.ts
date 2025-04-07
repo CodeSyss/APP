@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,13 +8,27 @@ export class UserService {
   constructor(private readonly prisma: PrismaService) {}
 
   async createUser(createUserDto: CreateUserDto) {
-    return this.prisma.user.create({
-      data: createUserDto,
+    return this.prisma.user.create({data: createUserDto
     });
   }
 
-  findAll() {
-    return this.prisma.user.findMany();
+//   async createUser(data: { name: string; email: string }) {
+//     return this.prisma.user.create({ data }); // Crea un nuevo usuario
+//   }
+// }
+
+  // async createUser(createUserDto: CreateUserDto) {
+  //   try {
+  //     return await this.prisma.user.create({
+  //       data: createUserDto,
+  //     });
+  //   } catch (error) {
+  //     throw new InternalServerErrorException("Error al crear el usuario");
+  //   }
+  // }
+
+  async findAll() {
+    return await this.prisma.user.findMany();
   }
 
   findOne(id: number) {
