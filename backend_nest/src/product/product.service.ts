@@ -8,7 +8,7 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
-    return this.prisma.product.create({
+    return await this.prisma.product.create({
       data: createProductDto,
     });
   }
